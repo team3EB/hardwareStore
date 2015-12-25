@@ -18,6 +18,9 @@ var amplify = require("amplify");
 
 mongoose.connect('mongodb://localhost/hardstore');     // connect to mongoDB database on modulus.io
 
+mongoose.connection.on('open', function (ref) {
+    console.log('Connected to Mongo server...');
+});
 app.use(express.static(__dirname + '/../public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
@@ -35,7 +38,7 @@ var Item = mongoose.model('Item', {
 });
 
 app.get('/items', function(req, res) {
-
+    console.log("im in server get");
     Item.find(function(err, items) {
 
         if (err)
@@ -45,6 +48,41 @@ app.get('/items', function(req, res) {
     });
 });
 
+app.post('/items', function(req,res){
+    console.log(req.body);
+   Item.create({
+       name: req.body.name,
+       description: req.body.description,
+       weight : req.body.weight,
+       stock : req.body.stock,
+       price : req.body.price
+   })
+
+    //db.hardstore.insert(req.body, function(err, doc){
+      //  res.json(doc);
+    //});
+    //module.item = mongoose.model(req.body, Item);
+
+
+});
+
+/*
+var Post = require('/items/post')
+app.post('/items/posts', function (req, res, next) {
+    var post = new Post({
+        name: req.body.name,
+        description: req.body.description,
+        weight : req.body.weight,
+        stock : req.body.stock,
+        price : req.body.price
+
+    })
+    post.save(function (err, post) {
+        if (err) { return next(err) }
+        res.json(201, post)
+    })
+})
+*/
 
 app.post('/api/visitors', function(req, res) {
 
