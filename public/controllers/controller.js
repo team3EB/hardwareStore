@@ -9,8 +9,8 @@ myApp.controller('ItemsControll', ['$scope', '$http', function($scope, $http) {
 
     $http.put('/items').success(function(req){
        console.log('im in get put controller');
-
     });
+
 
 }]);
 

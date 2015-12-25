@@ -16,9 +16,9 @@ var amplify = require("amplify");
 
 // configuration =================
 
-mongoose.connect('mongodb://localhost/jsappdb');     // connect to mongoDB database on modulus.io
+mongoose.connect('mongodb://localhost/hardstore');     // connect to mongoDB database on modulus.io
 
-app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/../public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
@@ -26,20 +26,22 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 
 
-var Visitor = mongoose.model('Visitor', {
+var Item = mongoose.model('Item', {
     name : String,
-    date: Date,
-    browserInfo: String
+    description: String,
+    weight: Number,
+    stock: Boolean,
+    price: Number
 });
 
-app.get('/api/visitors', function(req, res) {
+app.get('/items', function(req, res) {
 
-    Visitor.find(function(err, visitors) {
+    Item.find(function(err, items) {
 
         if (err)
             res.send(err);
 
-        res.json(visitors);
+        res.json(items);
     });
 });
 
