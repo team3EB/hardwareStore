@@ -9,7 +9,7 @@
 var express  = require('express');
 var config = require('./config');
 var User   = require('./user');
-var Item   = require('./item');
+var Item       = require('./item');
 var app = express();                               // create our app w/ express
 var mongoose = require('mongoose');                     // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -136,7 +136,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         } else if (user) {
 
             // check if password matches
-            if (user.password != req.body.password) {
+            if (user.comparePassword(user.password, req.body.password)) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
 
