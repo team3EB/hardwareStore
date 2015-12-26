@@ -85,7 +85,7 @@ app.get('/new',function(req,res){
 
 app.get('/test',function(req,res){
 
-    res.sendfile('/frontend/index.html', {'root': '../'});
+   res.sendfile('/frontend/index.html', {'root': '../'});
 
 });
 //SAMPLE USER FOR TESTING
