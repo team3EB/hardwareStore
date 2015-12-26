@@ -47,7 +47,7 @@ app.get('/items', function(req, res) {
     });
 });
 
-app.post('/items', function(req){
+app.post('/items', function(req, res){
     console.log(req.body);
 
    Item.create({
@@ -58,32 +58,30 @@ app.post('/items', function(req){
        price : req.body.price
    })
 
-    //db.hardstore.insert(req.body, function(err, doc){
-      //  res.json(doc);
-    //});
-    //module.item = mongoose.model(req.body, Item);
+});
+
+app.get('/catalogue/item/:id', function(req,res){
+
+    console.log('im inside catalogue/item');
+    var id = req.params.id;
+    var item;
+    Item.find(function(err, items) {
+
+        if (err)
+            res.send(err);
+        for(var i = 0 ; i < items.length; i++)
+                if(items[i]._id == id){
+                    item=items[i];
+                    console.log(item);
+                    res.json(item);
+                }
+
+
+    });
+
 
 
 });
-
-/*
-var Post = require('/items/post')
-app.post('/items/posts', function (req, res, next) {
-    var post = new Post({
-        name: req.body.name,
-        description: req.body.description,
-        weight : req.body.weight,
-        stock : req.body.stock,
-        price : req.body.price
-
-    })
-    post.save(function (err, post) {
-        if (err) { return next(err) }
-        res.json(201, post)
-    })
-})
-*/
-
 app.get('/new',function(req,res){
 
     res.sendfile('/public/new.html', {'root': '../'});
