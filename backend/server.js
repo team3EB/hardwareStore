@@ -57,34 +57,35 @@ app.post('/items', function(req, res){
        stock : req.body.stock,
        price : req.body.price
    })
-
 });
 
-app.get('/catalogue/item/:id', function(req,res){
+/*
+var Post = require('/items/post')
+app.post('/items/posts', function (req, res, next) {
+    var post = new Post({
+        name: req.body.name,
+        description: req.body.description,
+        weight : req.body.weight,
+        stock : req.body.stock,
+        price : req.body.price
 
-    console.log('im inside catalogue/item');
-    var id = req.params.id;
-    var item;
-    Item.find(function(err, items) {
+    })
+    post.save(function (err, post) {
+        if (err) { return next(err) }
+        res.json(201, post)
+    })
+})
+*/
 
-        if (err)
-            res.send(err);
-        for(var i = 0 ; i < items.length; i++)
-                if(items[i]._id == id){
-                    item=items[i];
-                    console.log(item);
-                    res.json(item);
-                }
-
-
-    });
-
-
-
-});
 app.get('/new',function(req,res){
 
     res.sendfile('/public/new.html', {'root': '../'});
+
+});
+
+app.get('/test',function(req,res){
+
+    res.sendfile('/frontend/index.html', {'root': '../'});
 
 });
 //SAMPLE USER FOR TESTING
@@ -128,37 +129,29 @@ var apiRoutes = express.Router();
 
 apiRoutes.post('/authenticate', function(req, res) {
 
-    // find the user
-    User.findOne({
-        name: req.body.name
-    }, function(err, user) {
 
-        if (err) throw err;
-
-        if (!user) {
+    User.findOne({name: req.body.name}, function (err, user) {
+        if (err) {
+            console.log(err);
+            return res.send(401);
             res.json({ success: false, message: 'Authentication failed. User not found.' });
-        } else if (user) {
+        }
 
-            // check if password matches
-            if (user.comparePassword(user.password, req.body.password)) {
+        user.comparePassword(req.body.password, function(isMatch) {
+            if (!isMatch) {
+                console.log("Attempt failed to login with " + user.username);
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-            } else {
-
-                // if user is found and password is right
-                // create a token
-                var token = jwt.sign(user, app.get('superSecret'), {
-                    expiresInMinutes: 1440 // expires in 24 hours
-                });
-
-                // return the information including token as JSON
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token
-                });
+                return res.send(401);
             }
 
-        }
+            var token = jwt.sign(user, app.get('superSecret'), {
+                expiresInMinutes: 1440 // expires in 24 hours
+            });
+
+            return res.json({success: true,
+                message: 'Enjoy your token!',
+                token: token});
+        });
 
     });
 });
