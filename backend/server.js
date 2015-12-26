@@ -47,8 +47,9 @@ app.get('/items', function(req, res) {
     });
 });
 
-app.post('/items', function(req,res){
+app.post('/items', function(req){
     console.log(req.body);
+
    Item.create({
        name: req.body.name,
        description: req.body.description,
@@ -83,6 +84,11 @@ app.post('/items/posts', function (req, res, next) {
 })
 */
 
+app.get('/new',function(req,res){
+
+    res.sendfile('/public/new.html', {'root': '../'});
+
+});
 //SAMPLE USER FOR TESTING
 app.get('/setup', function(req, res) {
 
