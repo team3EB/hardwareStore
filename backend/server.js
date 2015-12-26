@@ -9,6 +9,7 @@
 var express  = require('express');
 var config = require('./config');
 var User   = require('./user');
+var Item   = require('./item');
 var app = express();                               // create our app w/ express
 var mongoose = require('mongoose');                     // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -33,16 +34,6 @@ app.use(bodyParser.urlencoded({'extended':'true'}));            // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
-
-
-var Item = mongoose.model('Item', {
-    name : String,
-    description: String,
-    weight: Number,
-    stock: Boolean,
-    price: Number
-});
-
 
 //ITEMS ROUTES
 app.get('/items', function(req, res) {
