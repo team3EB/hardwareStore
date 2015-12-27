@@ -1,5 +1,6 @@
 // app.js
 var routerApp = angular.module('routerApp', ['ui.router']);
+var item_id;
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -46,7 +47,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     .state('item', {
         url: '/catalogue/:id',
         templateUrl: '/pages/item.html',
-        controller: 'itemController'
+        controller: 'Catalogue'
 
     });
 
@@ -54,15 +55,33 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
 });
 
-routerApp.controller('Catalogue',  ['$scope', '$http', '$injector', function ($scope, $http, $injector) {
+routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$stateParams', function ($scope,$http,$rootScope,$state, $stateParams) {
 
     $http.get('/catalogue').success(function (response) {
             $scope.items = response;
     });
 
+    $scope.getItem = function(index){
+        item_id =  index;
+        $state.go('item');
+
+    };
+
+    if ($state.includes('item')){
+        console.log(item_id);
+        $http.get('/catalogue/' + item_id).success(function (response) {
+            $scope.item = response;
+            console.log(response);
+        });
+    }
+
+
+
 
 
 }]);
+
+
 
 routerApp.controller('itemController',  ['$scope', '$http','$rootScope','$state', '$stateParams', function ($scope,$http,$rootScope,$state, $stateParams){
 
@@ -74,15 +93,6 @@ routerApp.controller('itemController',  ['$scope', '$http','$rootScope','$state'
         });
 
     };
-
-
-        $http.get('/catalogue/567d413cd7ab66463b0e2687').success(function(response){
-            $scope.item = response;
-            console.log(response);
-
-        });
-
-
 
 }]);
 

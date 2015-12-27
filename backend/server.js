@@ -74,9 +74,9 @@ app.get('/catalogue/:id', function(req, res) {
         if(err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else {
-            response = {"error" : false,"message" : data};
+
         }
-        res.json(response);
+        res.json(data);
     });
 });
 
