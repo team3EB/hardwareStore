@@ -7,9 +7,9 @@
 
 // set up ========================
 var express  = require('express');
-var config = require('./config');
-var User   = require('./user');
-var Item       = require('./item');
+var config = require('./models/config');
+var User   = require('./models/user');
+var Item    = require('./models/item');
 var app = express();                               // create our app w/ express
 var mongoose = require('mongoose');                     // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -28,7 +28,7 @@ mongoose.connection.on('open', function (ref) {
     console.log('Connected to Mongo server...');
 });
 
-app.use(express.static(__dirname + '/../public'));                 // set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/../frontend'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
@@ -36,7 +36,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 
 //ITEMS ROUTES
-app.get('/items', function(req, res) {
+app.get('/catalogue', function(req, res) {
     console.log("im in server get");
     Item.find(function(err, items) {
 
@@ -47,7 +47,8 @@ app.get('/items', function(req, res) {
     });
 });
 
-app.post('/items', function(req, res){
+
+app.post('/catalogue', function(req, res){
     console.log(req.body);
 
    Item.create({
@@ -56,7 +57,43 @@ app.post('/items', function(req, res){
        weight : req.body.weight,
        stock : req.body.stock,
        price : req.body.price
-   })
+   });
+
+    Item.find(function(err, items) {
+        if (err)
+            res.send(err)
+        res.json(items);
+    });
+});
+
+app.get('/catalogue/:item_id', function(req, res) {
+    var response = {};
+
+    Item.findById(req.params.id,function(err,data){
+        // This will run Mongo Query to fetch data based on ID.
+        if(err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else {
+            response = {"error" : false,"message" : data};
+        }
+        res.json(response);
+    });
+});
+
+app.delete('/catalogue/:item_id', function(req, res) {
+    Item.remove({
+        _id : req.params.item_id
+    }, function(err, item) {
+        if (err)
+            res.send(err);
+
+        // get and return all the todos after you create another
+        Todo.find(function(err, items) {
+            if (err)
+                res.send(err)
+            res.json(items);
+        });
+    });
 });
 
 /*
@@ -77,17 +114,7 @@ app.post('/items/posts', function (req, res, next) {
 })
 */
 
-app.get('/new',function(req,res){
 
-    res.sendfile('/public/new.html', {'root': '../'});
-
-});
-
-app.get('/test',function(req,res){
-
-   res.sendfile('/frontend/index.html', {'root': '../'});
-
-});
 //SAMPLE USER FOR TESTING
 app.get('/setup', function(req, res) {
 
@@ -202,7 +229,7 @@ app.use('/api', apiRoutes);
 
 
 app.get('*', function(req, res) {
-    res.sendfile('/public/index.html', {'root': '../'});
+    res.sendfile('/../frontend/index.html');
 });
 
 process.on('uncaughtException', function(err) {
