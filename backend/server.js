@@ -66,7 +66,7 @@ app.post('/catalogue', function(req, res){
     });
 });
 
-app.get('/catalogue/:item_id', function(req, res) {
+app.get('/catalogue/:id', function(req, res) {
     var response = {};
 
     Item.findById(req.params.id,function(err,data){

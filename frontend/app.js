@@ -41,7 +41,14 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '/pages/partial-about.html',
             controller: 'Catalogue'
 
-        });
+        })
+
+    .state('item', {
+        url: '/catalogue/:id',
+        templateUrl: '/pages/item.html',
+        controller: 'itemController'
+
+    });
 
 
 
@@ -52,6 +59,8 @@ routerApp.controller('Catalogue',  ['$scope', '$http', '$injector', function ($s
     $http.get('/catalogue').success(function (response) {
             $scope.items = response;
     });
+
+
 
 }]);
 
@@ -65,5 +74,15 @@ routerApp.controller('itemController',  ['$scope', '$http','$rootScope','$state'
         });
 
     };
+
+
+        $http.get('/catalogue/567d413cd7ab66463b0e2687').success(function(response){
+            $scope.item = response;
+            console.log(response);
+
+        });
+
+
+
 }]);
 
