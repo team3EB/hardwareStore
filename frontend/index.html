@@ -13,22 +13,32 @@
     <!-- JS (load angular, ui-router, and our custom js file) -->
     <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="app.js"></script>
+    <script src="pages.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <!-- apply our angular app to our site -->
 <body ng-app="routerApp">
 
 <!-- NAVIGATION -->
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" ui-sref="#">AngularUI Router</a>
     </div>
     <ul class="nav navbar-nav">
         <li><a ui-sref="home">Home</a></li>
         <li><a ui-sref="item">Item</a></li>
-        <li><a ui-sref="about">About</a></li>
+        <li><a ui-sref="catalogue">Catalogue</a></li>
         <li><a ui-sref="addItem">Add Item</a></li>
+
+    </ul>
+    <ul class="nav navbar-right">
+        <button type="button" class="btn btn-default btn-sm" ng-controller="cartController" ng-click="cart()">
+            <span class="glyphicon glyphicon-shopping-cart"></span> <b id="cart"></b> Items in Cart
+        </button>
+
     </ul>
 </nav>
 

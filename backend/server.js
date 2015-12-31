@@ -28,8 +28,10 @@ mongoose.connection.on('open', function (ref) {
     console.log('Connected to Mongo server...');
 });
 
+
 app.use(express.static(__dirname + '/../frontend'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
+
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
@@ -78,6 +80,50 @@ app.get('/catalogue/:id', function(req, res) {
         }
         res.json(data);
     });
+});
+
+app.get('/update/:id', function(req, res) {
+    console.log('In in UPDATE SERVER')
+    var response = {};
+
+    Item.findById(req.params.id,function(err,data){
+        // This will run Mongo Query to fetch data based on ID.
+        if(err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else {
+
+        }
+        res.json(data);
+    });
+});
+
+app.get('/cart',function(req, res){
+    console.log('hallo from server');
+   // sessionstorage.setItem(1,'asdasd')
+    //console.log('sessionstorage'+ sessionstorage.getItem(1));
+
+});
+
+
+app.put('/update/:item_id', function(req,res){
+
+    return Item.findById(req.params.item_id, function (err, item) {
+        item.name =  req.body.name;
+        item.description = req.body.description;
+        item.weight = req.body.weight;
+        item.stock = req.body.stock;
+        item.price = req.body.price;
+        return item.save(function (err) {
+            if (!err) {
+                console.log("updated");
+            } else {
+                console.log(err);
+            }
+            return res.send(item);
+        });
+    });
+
+
 });
 
 app.delete('/catalogue/:item_id', function(req, res) {
