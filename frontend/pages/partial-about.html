@@ -4,14 +4,14 @@
             <img src="http://placehold.it/320x150" alt="">
             <div class="caption">
                 <h4 class="pull-right">{{item.price}}€</h4>
-                <h4><a href="" ng-click="getItem(item._id)">{{item.name}}</a>
+                <h4><a href="" ng-click="getItem(item._id, false)">{{item.name}}</a>
                 </h4>
                 <p>{{item.description}}</p>
             </div>
             <div class="ratings">
                 <p class="pull-right"><button type="button" class="btn btn-primary" ng-controller="cartController" ng-click="addToCart(item._id)">Add to Cart</button></p>
                 <p class="pull-right"><button type="button" class="btn btn-danger" ng-click="remove(item._id)">Remove</button></p>
-                <p ><button type="button" class="btn btn-primary" ng-click="getItemforUpdate(item._id)">Update</button></p>
+                <p ><button type="button" class="btn btn-primary" ng-click="getItem(item._id, true)">Update</button></p>
 
 
             </div>

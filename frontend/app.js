@@ -49,22 +49,8 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
 
         })
-/*
-        .state('about', {
-            url: '/about',
-            templateUrl: '/pages/partial-about.html',
-            controller: 'Catalogue'
-
-        })
-*/
 
         .state('catalogue', {
-            url: '/catalogue',
-            templateUrl: '/pages/partial-about.html',
-            controller: 'Catalogue'
-
-        })
-        .state('backToCatalogue', {
             url: '/catalogue',
             templateUrl: '/pages/partial-about.html',
             controller: 'Catalogue'
@@ -76,8 +62,9 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'cartController'
 
         })
+
         .state('itemUpdate', {
-            url: '/update/:id',
+            url: '',
             templateUrl: '/pages/newItemForm.html',
             controller: 'Catalogue'
 
@@ -100,25 +87,28 @@ routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$st
         $scope.items = response;
     })
 
-    $scope.getItem = function(index){
+    $scope.getItem = function(index, update){
         item_id =  index;
-        $state.go("item", { "id": index});
+        console.log(update);
+        if(update==true){
+            console.log('1');
+            $state.go("itemUpdate", { "id": index});
+        } else{
+            console.log('2');
+            $state.go("item", { "id": index});
+        }
+
 
     }
     $scope.remove = function(id){
         console.log(id);
         $http.delete('/catalogue/'+id);
-        $state.go('backToCatalogue');
+        $window.location.reload();
     }
 
-    $scope.getItemforUpdate = function(id){
-        item_id = id;
-        $state.go("itemUpdate", { "id": id});
-
-    }
 
     if ($state.includes('item')){
-        console.log($stateParams.id);
+        //console.log($stateParams.id);
         $http.get('/catalogue/' + $stateParams.id).success(function (response) {
             $scope.item = response;
             console.log(response);
@@ -126,8 +116,8 @@ routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$st
     }
 
     if ($state.includes('itemUpdate')){
-        console.log($stateParams.id);
-        $http.get('/update/' + $stateParams.id).success(function (response) {
+        //console.log($stateParams.id);
+        $http.get('/catalogue/' + $stateParams.id).success(function (response) {
             $scope.item = response;
             console.log(response);
         });
@@ -151,7 +141,7 @@ routerApp.controller('itemController', ['$scope', '$http','$rootScope','$state',
     };
 
     $scope.itemUpdate = function(id){
-        $http.put('/update/' + id, $scope.item).success(function(response){
+        $http.put('/catalogue/' + id, $scope.item).success(function(response){
             $state.go("item", { "id": id});
 
         });

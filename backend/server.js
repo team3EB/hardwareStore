@@ -82,20 +82,6 @@ app.get('/catalogue/:id', function(req, res) {
     });
 });
 
-app.get('/update/:id', function(req, res) {
-    console.log('In in UPDATE SERVER')
-    var response = {};
-
-    Item.findById(req.params.id,function(err,data){
-        // This will run Mongo Query to fetch data based on ID.
-        if(err) {
-            response = {"error" : true,"message" : "Error fetching data"};
-        } else {
-
-        }
-        res.json(data);
-    });
-});
 
 app.get('/cart',function(req, res){
     console.log('hallo from server');
@@ -105,7 +91,7 @@ app.get('/cart',function(req, res){
 });
 
 
-app.put('/update/:item_id', function(req,res){
+app.put('/catalogue/:item_id', function(req,res){
 
     return Item.findById(req.params.item_id, function (err, item) {
         item.name =  req.body.name;
@@ -134,7 +120,7 @@ app.delete('/catalogue/:item_id', function(req, res) {
             res.send(err);
 
         // get and return all the todos after you create another
-        Todo.find(function(err, items) {
+        Item.find(function(err, items) {
             if (err)
                 res.send(err)
             res.json(items);
@@ -274,7 +260,7 @@ apiRoutes.get('/users', function(req, res) {
 app.use('/api', apiRoutes);
 
 
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
     res.sendfile('/../frontend/index.html');
 });
 
