@@ -40,6 +40,7 @@ app.use(methodOverride());
 //ITEMS ROUTES
 app.get('/catalogue', function(req, res) {
     console.log("im in server get");
+    console.log(req.headers);
     Item.find(function(err, items) {
 
         if (err)
@@ -70,6 +71,7 @@ app.post('/catalogue', function(req, res){
 
 app.get('/catalogue/:id', function(req, res) {
     var response = {};
+    console.log(req.headers);
 
     Item.findById(req.params.id,function(err,data){
         // This will run Mongo Query to fetch data based on ID.
@@ -84,6 +86,7 @@ app.get('/catalogue/:id', function(req, res) {
 
 
 app.get('/cart',function(req, res){
+    console.log(req.headers);
     console.log('hallo from server');
    // sessionstorage.setItem(1,'asdasd')
     //console.log('sessionstorage'+ sessionstorage.getItem(1));
@@ -219,7 +222,10 @@ apiRoutes.post('/authenticate', function(req, res) {
 apiRoutes.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
+    console.log(req.headers);
+
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
 
     // decode token
     if (token) {

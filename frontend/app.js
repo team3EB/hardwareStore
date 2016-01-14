@@ -201,7 +201,7 @@ routerApp.controller('userController', ['$scope', '$http','$rootScope','$state',
         console.log($scope.user);
         $http.post('/api/authenticate', $scope.user).success(function(response){
             console.log($scope.user);
-
+            $window.localStorage['token'] = response.token;
             console.log(response);
             $state.go('home');
         });
@@ -275,3 +275,18 @@ refresh();
 
 }]);
 
+routerApp.factory('httpRequestInterceptor', ['$window', function ($window) {
+    return {
+        request: function (config) {
+
+            config.headers['x-access-token'] = $window.localStorage['token'];
+            config.headers['Test'] = 'TASDADASDASDASD';
+
+            return config;
+        }
+    };
+}]);
+
+routerApp.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('httpRequestInterceptor');
+});
