@@ -260,7 +260,7 @@ apiRoutes.get('/users', function(req, res) {
 app.use('/api', apiRoutes);
 
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.sendfile('/../frontend/index.html');
 });
 

@@ -6,7 +6,7 @@ var cart = new Array();
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
 
@@ -21,7 +21,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('home.cart', {
 
-            url: '/home',
+            url: '/home/cart',
             templateUrl: '/pages/partial-home.html'
 
         })
@@ -42,6 +42,15 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             template: 'I could sure use a drink right now.'
         })
 
+
+        .state('catalogue', {
+            url: '/catalogue',
+            templateUrl: '/pages/partial-about.html',
+            controller: 'Catalogue'
+
+        })
+
+
         .state('addItem', {
             url: '/addItemForm',
             templateUrl: '/pages/newItemForm.html',
@@ -50,12 +59,14 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
-        .state('catalogue', {
-            url: '/catalogue',
-            templateUrl: '/pages/partial-about.html',
-            controller: 'Catalogue'
+
+        .state('itemUpdate', {
+            url: '/catalogue/:id/update',
+            templateUrl: '/pages/updateForm.html',
+            controller: 'itemController'
 
         })
+
         .state('cart', {
             url: '/cart',
             templateUrl: '/pages/cart.html',
@@ -63,18 +74,17 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
-        .state('itemUpdate', {
-            url: '',
-            templateUrl: '/pages/newItemForm.html',
-            controller: 'Catalogue'
-
-        })
 
         .state('item', {
             url: '/catalogue/:id',
             templateUrl: '/pages/item.html',
             controller: 'Catalogue'
 
+        })
+
+        $stateProvider.state('notFound', {
+        url: '{path:.*}',
+        templateUrl: '/pages/partial-home.html'
         });
 
 
@@ -131,6 +141,12 @@ routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$st
 
 routerApp.controller('itemController', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
 
+
+    $http.get('/catalogue/' + $stateParams.id).success(function (response) {
+        $scope.item = response;
+
+    })
+
     $scope.addItem = function(){
         console.log($scope.item);
         $http.post('/catalogue', $scope.item).success(function(response){
@@ -140,9 +156,12 @@ routerApp.controller('itemController', ['$scope', '$http','$rootScope','$state',
 
     };
 
-    $scope.itemUpdate = function(id){
-        $http.put('/catalogue/' + id, $scope.item).success(function(response){
-            $state.go("item", { "id": id});
+    $scope.itemUpdate = function(){
+            console.log($scope.item);
+            $http.put('/catalogue/' + $stateParams.id, $scope.item).success(function(response){
+            $scope.item = response;
+            console.log(response);
+            $state.go("item", { "id": $stateParams.id});
 
         });
     }
