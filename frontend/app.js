@@ -4,6 +4,8 @@ var item_id;
 var cart = new Array();
 
 
+
+
 routerApp.config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');
@@ -82,10 +84,25 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
+        .state('registerUser', {
+            url: '/user/register',
+            templateUrl: '/pages/registrationForm.html',
+            controller: 'userController'
+
+        })
+
+        .state('login', {
+            url: '/login',
+            templateUrl: '/pages/login.html',
+            controller: 'userController'
+
+        })
+
         $stateProvider.state('notFound', {
         url: '{path:.*}',
         templateUrl: '/pages/partial-home.html'
         });
+
 
 
 
@@ -165,6 +182,31 @@ routerApp.controller('itemController', ['$scope', '$http','$rootScope','$state',
 
         });
     }
+
+}]);
+
+routerApp.controller('userController', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
+
+
+    $scope.registerUser = function(){
+        console.log($scope.item);
+        $http.post('/signup', $scope.user).success(function(response){
+            console.log($scope.user);
+            $state.go('home');
+        });
+
+    };
+
+    $scope.loginUser = function(){
+        console.log($scope.user);
+        $http.post('/api/authenticate', $scope.user).success(function(response){
+            console.log($scope.user);
+
+            console.log(response);
+            $state.go('home');
+        });
+
+    };
 
 }]);
 
