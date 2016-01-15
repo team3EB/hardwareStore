@@ -1,14 +1,12 @@
 // app.js
-var routerApp = angular.module('routerApp', ['ui.router']);
+var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt']);
 var item_id;
 var cart = new Array();
 
 
-
-
 routerApp.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/home');
 
     $stateProvider
 
@@ -18,7 +16,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
 
                     url: '/home',
-                    templateUrl: '/pages/partial-home.html'
+                    templateUrl: '/pages/partial-home.html',
 
         })
         .state('home.cart', {
@@ -56,7 +54,8 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         .state('addItem', {
             url: '/addItemForm',
             templateUrl: '/pages/newItemForm.html',
-            controller: 'itemController'
+            controller: 'itemController',
+            authenticate: true
 
 
         })
@@ -65,7 +64,8 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         .state('itemUpdate', {
             url: '/catalogue/:id/update',
             templateUrl: '/pages/updateForm.html',
-            controller: 'itemController'
+            controller: 'itemController',
+            authenticate: true
 
         })
 
@@ -98,10 +98,6 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
-        $stateProvider.state('notFound', {
-        url: '{path:.*}',
-        templateUrl: '/pages/partial-home.html'
-        });
 
 
 
@@ -185,6 +181,7 @@ routerApp.controller('itemController', ['$scope', '$http','$rootScope','$state',
 
 }]);
 
+
 routerApp.controller('userController', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
 
 
@@ -203,7 +200,7 @@ routerApp.controller('userController', ['$scope', '$http','$rootScope','$state',
             console.log($scope.user);
             $window.localStorage['token'] = response.token;
             console.log(response);
-            $state.go('home');
+            $state.go('home', {}, {reload: true});
         });
 
     };
@@ -280,7 +277,6 @@ routerApp.factory('httpRequestInterceptor', ['$window', function ($window) {
         request: function (config) {
 
             config.headers['x-access-token'] = $window.localStorage['token'];
-            config.headers['Test'] = 'TASDADASDASDASD';
 
             return config;
         }
@@ -289,4 +285,18 @@ routerApp.factory('httpRequestInterceptor', ['$window', function ($window) {
 
 routerApp.config(function ($httpProvider) {
     $httpProvider.interceptors.push('httpRequestInterceptor');
+});
+
+routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelper) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState){
+
+        var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
+        var role = checkRole['role'];
+
+        if(role === 'admin') {
+            $rootScope.admin = true;
+        }else{
+            $rootScope.admin = false;
+        }
+    });
 });

@@ -155,8 +155,9 @@ app.get('/setup', function(req, res) {
 
     // create a sample user
     var nick = new User({
-        name: 'Nick Cerminara',
-        password: 'password',
+        name: 'admin',
+        password: 'admin',
+        role: 'admin'
     });
 
     // save the sample user
