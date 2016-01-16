@@ -75,6 +75,12 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'cartController'
 
         })
+        .state('admin', {
+            url: '/admin',
+            templateUrl: '/pages/admin/admin.html',
+            controller: 'userController'
+
+        })
 
 
         .state('item', {
@@ -104,6 +110,8 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
 
 });
+
+
 routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
 
     $http.get('/catalogue').success(function (response) {
@@ -214,18 +222,43 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
 
     $scope.count = $window.sessionStorage.length;
 
+    function counter(arr) {
+        var a = new Array();
+         var b = new Array();
+          var prev;
+
+        for ( var i = 0; i < arr.length; i++ ) {
+            if ( arr[i]._id !== prev ) {
+                a.push(arr[i]);
+                b.push(1);
+            } else {
+                b[b.length-1]++;
+            }
+            prev = arr[i]._id;
+        }
+
+        for(var j = 0; j < a.length; j++) {
+            a[j]['count'] = b[j];
+            a[j].price = a[j].price*b[j];
+        }
+        return a;
+    }
+
     var sessioncart = function() {
 
         var session_cart = new Array();
+        var cart_count = new Array();
 
         for (var i = 0 ; i < $window.sessionStorage.length; i++) {
 
-                session_cart.push(JSON.parse($window.sessionStorage.getItem(i)));
-                session_cart[i].ses_id = i;
+
+
+            session_cart.push(JSON.parse($window.sessionStorage.getItem(i)));
 
 
         }
-        return session_cart;
+
+        return counter(session_cart);
     }
 
    $scope.ses = sessioncart();
@@ -262,6 +295,7 @@ refresh();
     }
 
     $scope.cart = function () {
+
 
         $state.go('cart');
 
