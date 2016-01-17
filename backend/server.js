@@ -195,7 +195,7 @@ var apiRoutes = express.Router();
 
 apiRoutes.post('/authenticate', function(req, res) {
 
-
+console.log('im in authefication');
     User.findOne({name: req.body.name}, function (err, user) {
         if (err) {
             console.log(err);

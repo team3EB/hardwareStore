@@ -7,7 +7,15 @@ var Schema = mongoose.Schema;
 
 var Order = new Schema({
     User_id : String,
-    items : { type : Array , "default" : [] }
+    items : { type : Array , "default" : [] },
+    order_address : {
+        receiver : String,
+        street : String,
+        zip : Number,
+        city : String,
+        country : String
+    },
+    payment : false
 });
 
 // set up a mongoose model and pass it using module.exports

@@ -82,6 +82,12 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'userController'
 
         })
+        .state('order', {
+            url: '/order',
+            templateUrl: '/pages/order.html',
+            controller: 'orderController'
+
+        })
 
 
         .state('item', {
@@ -269,7 +275,7 @@ routerApp.controller('userManagement', ['$scope', '$http','$rootScope','$state',
         });
 
     }
-    
+
 
 }]);
 
@@ -419,6 +425,53 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
 
     };
 
+}]);
+
+routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window,jwtHelper) {
+    var sessioncart = function() {
+
+        var session_cart = new Array();
+        var cart_count = new Array();
+
+        for (var i = 0 ; i < $window.sessionStorage.length; i++) {
+            session_cart.push(JSON.parse($window.sessionStorage.getItem(i)));
+            $scope.totalprice += JSON.parse($window.sessionStorage.getItem(i)).total;
+        }
+
+        return session_cart;
+    }
+
+    $scope.ses = sessioncart();
+    $scope.checkout = function() {
+        $state.go('order');
+    }
+
+    $scope.finishOrder = function() {
+
+
+       // $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+
+            var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
+            console.log(checkRole);
+     //  });
+/*
+    //    if($window.localStorage['token'] == null)
+       $http.post('/signup', $scope.user).success(function(response){
+        });
+
+        $http.post('/api/authenticate', $scope.user).success(function(response){
+            console.log($scope.user);
+            $window.localStorage['token'] = response.token;
+            console.log(response);
+        });
+   console.log("IM logged in " +  $window.localStorage['token'] );
+
+*/
+      //  $http.post('/order', $scope.item).success(function (response) {
+        //    console.log(response);
+
+//        });
+    }
 }]);
 
 routerApp.factory('httpRequestInterceptor', ['$window', function ($window) {
