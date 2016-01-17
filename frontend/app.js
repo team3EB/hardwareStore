@@ -1,6 +1,7 @@
 // app.js
 var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt']);
 var item_id;
+var user_id;
 var cart = new Array();
 
 
@@ -12,13 +13,13 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-        // HOME STATES AND NESTED VIEWS ========================================
+    // HOME STATES AND NESTED VIEWS ========================================
     $stateProvider.state('home', {
 
-                    url: '/home',
-                    templateUrl: '/pages/partial-home.html',
+        url: '/home',
+        templateUrl: '/pages/partial-home.html',
 
-        })
+    })
         .state('home.cart', {
 
             url: '/home/cart',
@@ -104,9 +105,19 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
+        .state('userManagement', {
+            url: '/userManagement',
+            templateUrl: '/pages/admin/userManagement.html',
+            controller: 'userManagement'
 
+        })
 
+        .state('userUpdate', {
+            url: '/user/:id',
+            templateUrl: '/pages/admin/userUpdateForm.html',
+            controller: 'userManagement'
 
+        })
 
 
 });
@@ -178,8 +189,8 @@ routerApp.controller('itemController', ['$scope', '$http','$rootScope','$state',
     };
 
     $scope.itemUpdate = function(){
-            console.log($scope.item);
-            $http.put('/catalogue/' + $stateParams.id, $scope.item).success(function(response){
+        console.log($scope.item);
+        $http.put('/catalogue/' + $stateParams.id, $scope.item).success(function(response){
             $scope.item = response;
             console.log(response);
             $state.go("item", { "id": $stateParams.id});
@@ -215,34 +226,87 @@ routerApp.controller('userController', ['$scope', '$http','$rootScope','$state',
 
 }]);
 
+routerApp.controller('userManagement', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
+
+
+    $http.get('/api/users').success(function (response) {
+        $scope.users = response;
+    })
+
+    $scope.getUser = function(index){
+
+        user_id =  index;
+        console.log(user_id);
+
+
+        $state.go('userUpdate', { "id": user_id});
+    }
+
+    $scope.userUpdate = function(){
+        console.log($scope.user);
+        $http.put('/api/users/' + $stateParams.id, $scope.user).success(function(response){
+            $scope.user = response;
+            console.log(response);
+            $state.go("userManagement");
+
+        });
+    }
+
+    $scope.deleteUser = function(id){
+        console.log(id);
+        $http.delete('/users/'+id);
+        $window.location.reload();
+    }
+
+
+
+
+    if ($state.includes('userUpdate')){
+
+        $http.get('/api/users/' + user_id).success(function (response) {
+            $scope.user = response;
+            console.log(response);
+        });
+
+    }
+
+}]);
+
+routerApp.factory('httpRequestInterceptor', ['$window', function ($window) {
+    return {
+        request: function (config) {
+
+            config.headers['x-access-token'] = $window.localStorage['token'];
+
+            return config;
+        }
+    };
+}]);
+
+routerApp.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('httpRequestInterceptor');
+});
+
+routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelper) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState){
+
+        var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
+        var role = checkRole['role'];
+
+        if(role === 'admin') {
+            $rootScope.admin = true;
+        }else{
+            $rootScope.admin = false;
+        }
+    });
+});
 
 routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window){
 
-    $scope.totalprice=0;
+
 
     $scope.count = $window.sessionStorage.length;
-
-    function counter(arr) {
-        var a = new Array();
-         var b = new Array();
-          var prev;
-
-        for ( var i = 0; i < arr.length; i++ ) {
-            if ( arr[i]._id !== prev ) {
-                a.push(arr[i]);
-                b.push(1);
-            } else {
-                b[b.length-1]++;
-            }
-            prev = arr[i]._id;
-        }
-
-        for(var j = 0; j < a.length; j++) {
-            a[j]['count'] = b[j];
-            a[j].price = a[j].price*b[j];
-        }
-        return a;
-    }
+    $scope.totalprice = 0;
 
     var sessioncart = function() {
 
@@ -254,40 +318,94 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
             $scope.totalprice += JSON.parse($window.sessionStorage.getItem(i)).total;
         }
 
-        return counter(session_cart);
+        return session_cart;
     }
 
-   $scope.ses = sessioncart();
-/*
+    $scope.ses = sessioncart();
+    /*
 
- $scope.myDirectiveData = [
- { title: "First title", content: "First content" },
- { title: "Second title", content: "Second content" }
- ];
+     $scope.myDirectiveData = [
+     { title: "First title", content: "First content" },
+     { title: "Second title", content: "Second content" }
+     ];
 
-*/
+     */
 
-var refresh = function(){
-    $scope.count = $window.sessionStorage.length;
-    $('#cart').text($scope.count);
+    var refresh = function(){
+        $scope.count = $window.sessionStorage.length;
+        var counter=0;
 
-}
-refresh();
+        if($window.sessionStorage.length > 0)
+            for(var i =0;i< $window.sessionStorage.length;i++)
+                counter+=JSON.parse($window.sessionStorage.getItem(i)).count;
+
+        $('#cart').text(counter);
+
+    }
+    refresh();
 
     $scope.addToCart = function(id){
 
-
         $http.get('/catalogue/'+id).success(function(res){
-         //   $window.sessionStorage.setItem($scope.count, JSON.stringify(res));
-            $window.sessionStorage.setItem($scope.count, JSON.stringify(res));
+
+            if($window.sessionStorage.length == 0) {
+                res['count']=1;
+                res['total']=res.price;
+                $window.sessionStorage.setItem($scope.count, JSON.stringify(res));
+            }
+            else{
+                var existence = false;
+                for(var i =0;i< $window.sessionStorage.length;i++)
+                    if(JSON.parse($window.sessionStorage.getItem(i))._id == res._id) {
+                        console.log(JSON.parse($window.sessionStorage.getItem(i)).count);
+                        res['count'] = ++JSON.parse($window.sessionStorage.getItem(i)).count;
+                        res['total'] = res.price * res.count;
+
+                        console.log(res);
+                        $window.sessionStorage.setItem(i, JSON.stringify(res));
+                        existence = true;
+                    }
+                if(!existence){
+                    res['count']=1;
+                    res['total']=res.price;
+                    $window.sessionStorage.setItem($scope.count, JSON.stringify(res));
+                }
+
+            }
+
             $scope.count = $window.sessionStorage.length;
             refresh();
         });
 
     };
 
-    $scope.removeFromCart = function(ses_id){
-        $window.sessionStorage.removeItem(ses_id);
+    $scope.removeFromCart = function(ses_id) {
+        for (var i = 0; i < $window.sessionStorage.length; i++) {
+            if (JSON.parse($window.sessionStorage.getItem(i))._id == ses_id) {
+                $window.sessionStorage.removeItem(i);
+
+
+
+
+                $state.go('cart', {}, {reload: true});
+
+
+
+            }
+        }
+
+
+        console.log(  $window.sessionStorage);
+        // $window.sessionStorage.clear();
+        //  for(var i =0;i< tempStorage.length;i++) {
+        //    console.log('Hallo' + JSON.parse(tempStorage.getItem(i)));
+        // if (!JSON.parse($window.sessionStorage.getItem(i))._id == ses_id)
+
+
+        //}
+        //console.log("true");
+        //  console.log(JSON.parse($window.sessionStorage.getItem(i)));
+        //$window.sessionStorage.clear();
     }
 
     $scope.cart = function () {
