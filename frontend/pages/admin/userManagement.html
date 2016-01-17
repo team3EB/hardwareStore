@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="user in users">
+        <div class="thumbnail">
+            <div class="caption">
+                <h4><a href="" ng-click="getUser(user._id)">{{user.name}}</a>
+                    <p ><button type="button" class="btn btn-primary"  ng-click="deleteUser(user._id)">Delete</button></p>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

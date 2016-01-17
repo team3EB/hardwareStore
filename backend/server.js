@@ -8,8 +8,8 @@
 // set up ========================
 var express  = require('express');
 var config = require('./models/config');
-var User   = require('./models/user');
-var Item    = require('./models/item');
+var User  = require('./models/user');
+var Item  = require('./models/item');
 var app = express();                               // create our app w/ express
 var mongoose = require('mongoose');                     // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -131,24 +131,6 @@ app.delete('/catalogue/:item_id', function(req, res) {
     });
 });
 
-/*
-var Post = require('/items/post')
-app.post('/items/posts', function (req, res, next) {
-    var post = new Post({
-        name: req.body.name,
-        description: req.body.description,
-        weight : req.body.weight,
-        stock : req.body.stock,
-        price : req.body.price
-
-    })
-    post.save(function (err, post) {
-        if (err) { return next(err) }
-        res.json(201, post)
-    })
-})
-*/
-
 
 //SAMPLE USER FOR TESTING
 app.get('/setup', function(req, res) {
@@ -262,6 +244,54 @@ apiRoutes.get('/users', function(req, res) {
     User.find({}, function(err, users) {
         res.json(users);
     });
+});
+
+apiRoutes.put('/users/:id', function(req, res) {
+
+    return User.findById(req.params.id, function (err, user) {
+        user.name =  req.body.name;
+        return user.save(function (err) {
+            if (!err) {
+                console.log("updated");
+            } else {
+                console.log(err);
+            }
+            return res.send(user);
+        });
+    });
+
+});
+
+app.delete('/users/:id', function(req, res) {
+    User.remove({
+        _id : req.params.id
+    }, function(err) {
+        if (err)
+            res.send(err);
+
+        // get and return all the todos after you create another
+        User.find(function(err, users) {
+            if (err)
+                res.send(err)
+            res.json(users);
+        });
+    });
+});
+
+apiRoutes.get('/users/:id', function(req, res) {
+
+    console.log(req.headers);
+
+    User.findById(req.params.id,function(err,data){
+        // This will run Mongo Query to fetch data based on ID.
+        if(err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else {
+
+        }
+        res.json(data);
+    });
+
 });
 
 app.use('/api', apiRoutes);
