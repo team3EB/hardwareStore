@@ -2,6 +2,7 @@
 var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt']);
 var item_id;
 var user_id;
+var currUser;
 var cart = new Array();
 
 
@@ -290,23 +291,6 @@ routerApp.factory('httpRequestInterceptor', ['$window', function ($window) {
     };
 }]);
 
-routerApp.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('httpRequestInterceptor');
-});
-
-routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelper) {
-    $rootScope.$on('$stateChangeSuccess', function(event, toState){
-
-        var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
-        var role = checkRole['role'];
-
-        if(role === 'admin') {
-            $rootScope.admin = true;
-        }else{
-            $rootScope.admin = false;
-        }
-    });
-});
 
 routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window){
 
@@ -427,7 +411,7 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
 
 }]);
 
-routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window,jwtHelper) {
+routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window, jwtHelper) {
     var sessioncart = function() {
 
         var session_cart = new Array();
@@ -451,8 +435,7 @@ routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state
 
        // $rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
-            var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
-            console.log(checkRole);
+            console.log(currUser);
      //  });
 /*
     //    if($window.localStorage['token'] == null)
@@ -492,6 +475,7 @@ routerApp.config(function ($httpProvider) {
 routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelper) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState){
 
+        currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
         var role = checkRole['role'];
 
