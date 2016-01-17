@@ -54,13 +54,13 @@ app.get('/catalogue', function(req, res) {
 app.post('/catalogue', function(req, res){
     console.log(req.body);
 
-   Item.create({
-       name: req.body.name,
-       description: req.body.description,
-       weight : req.body.weight,
-       stock : req.body.stock,
-       price : req.body.price
-   });
+    Item.create({
+        name: req.body.name,
+        description: req.body.description,
+        weight : req.body.weight,
+        stock : req.body.stock,
+        price : req.body.price
+    });
 
     Item.find(function(err, items) {
         if (err)
@@ -88,7 +88,7 @@ app.get('/catalogue/:id', function(req, res) {
 app.get('/cart',function(req, res){
     console.log(req.headers);
     console.log('hallo from server');
-   // sessionstorage.setItem(1,'asdasd')
+    // sessionstorage.setItem(1,'asdasd')
     //console.log('sessionstorage'+ sessionstorage.getItem(1));
 
 });
