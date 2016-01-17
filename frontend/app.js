@@ -269,6 +269,7 @@ routerApp.controller('userManagement', ['$scope', '$http','$rootScope','$state',
         });
 
     }
+    
 
 }]);
 
