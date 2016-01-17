@@ -1,5 +1,6 @@
 
 <div class="container">
+    <h1> ACHTUNG! Till now you can remove only last element! </h1>
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1" >
             <table class="table table-hover">
@@ -16,18 +17,19 @@
                 <tr ng-controller="cartController" ng-repeat="s in ses">
                     <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#/catalogue/{{s._id}}"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="#">{{s.name}}</a></h4>
+                                <h4 class="media-heading"><a href="#/catalogue/{{s._id}}">{{s.name}}</a></h4>
                             </div>
                         </div></td>
                     <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input type="email" class="form-control" id="exampleInputEmail1" value={{s.count}}>
+                        <input type="number" class="form-control" id="exampleInputEmail1" ng-model="s.count" value={{s.count}}>
                     </td>
-                    <td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
-                    <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>{{s.price}}&euro;</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>{{s.count * s.price}}&euro;</strong></td>
+
                     <td class="col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger" ng-controller="cartController" ng-click="removeFromCart(s._id)">
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button></td>
                 </tr>
@@ -36,31 +38,18 @@
                     <td>   </td>
                     <td>   </td>
                     <td>   </td>
-                    <td><h5>Subtotal</h5></td>
-                    <td class="text-right"><h5><strong>$24.59</strong></h5></td>
-                </tr>
-                <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td><h5>Estimated shipping</h5></td>
-                    <td class="text-right"><h5><strong>$6.94</strong></h5></td>
-                </tr>
-                <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
                     <td><h3>Total</h3></td>
-                    <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+
+                    <td class="text-right"><h3><strong>{{totalprice}}</strong></h3></td>
                 </tr>
                 <tr>
                     <td>   </td>
                     <td>   </td>
                     <td>   </td>
                     <td>
-                        <button type="button" class="btn btn-default">
+                        <a href="#/catalogue" type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                        </button></td>
+                        </a></td>
                     <td>
                         <button type="button" class="btn btn-success">
                             Checkout <span class="glyphicon glyphicon-play"></span>
@@ -71,3 +60,4 @@
         </div>
     </div>
 </div>
+

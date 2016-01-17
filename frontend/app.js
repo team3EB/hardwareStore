@@ -1,7 +1,6 @@
 // app.js
 var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt']);
 var item_id;
-var user_id;
 var cart = new Array();
 
 
@@ -105,19 +104,9 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
-        .state('userManagement', {
-            url: '/userManagement',
-            templateUrl: '/pages/admin/userManagement.html',
-            controller: 'userManagement'
 
-        })
 
-        .state('userUpdate', {
-            url: '/user/:id',
-            templateUrl: '/pages/admin/userUpdateForm.html',
-            controller: 'userManagement'
 
-        })
 
 
 });
@@ -226,56 +215,10 @@ routerApp.controller('userController', ['$scope', '$http','$rootScope','$state',
 
 }]);
 
-routerApp.controller('userManagement', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
-
-
-    $http.get('/api/users').success(function (response) {
-        $scope.users = response;
-    })
-
-    $scope.getUser = function(index){
-
-        user_id =  index;
-        console.log(user_id);
-
-
-        $state.go('userUpdate', { "id": user_id});
-    }
-
-    $scope.userUpdate = function(){
-        console.log($scope.user);
-        $http.put('/api/users/' + $stateParams.id, $scope.user).success(function(response){
-            $scope.user = response;
-            console.log(response);
-            $state.go("userManagement");
-
-        });
-    }
-
-    $scope.deleteUser = function(id){
-        console.log(id);
-        $http.delete('/users/'+id);
-        $window.location.reload();
-    }
-
-
-
-
-    if ($state.includes('userUpdate')){
-
-        $http.get('/api/users/' + user_id).success(function (response) {
-            $scope.user = response;
-            console.log(response);
-        });
-
-    }
-
-}]);
-
 
 routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window){
 
-
+    $scope.totalprice=0;
 
     $scope.count = $window.sessionStorage.length;
 
@@ -307,12 +250,8 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
         var cart_count = new Array();
 
         for (var i = 0 ; i < $window.sessionStorage.length; i++) {
-
-
-
             session_cart.push(JSON.parse($window.sessionStorage.getItem(i)));
-
-
+            $scope.totalprice += JSON.parse($window.sessionStorage.getItem(i)).total;
         }
 
         return counter(session_cart);
