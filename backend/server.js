@@ -10,6 +10,7 @@ var express  = require('express');
 var config = require('./models/config');
 var User  = require('./models/user');
 var Item  = require('./models/item');
+var Order  = require('./models/order');
 var app = express();                               // create our app w/ express
 var mongoose = require('mongoose');                     // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -151,6 +152,26 @@ app.get('/setup', function(req, res) {
     });
 });
 
+app.get('/sampleorder', function(req, res) {
+
+    // create a sample user
+    var sampleOrder = new Order({
+        User_id: '567def5a692295152c36e8f3',
+        "items":[
+            {"id":"569795e6a29e92b60c8de3d2"},
+            {"id":"569acb29d8fd47c4099e7777"},
+        ]
+    });
+
+    // save the sample user
+    sampleOrder.save(function(err) {
+        if (err) throw err;
+
+        console.log('Order saved successfully');
+        res.json({ success: true });
+    });
+});
+
 app.post('/signup', function(req, res) {
 
     // create a sample user
@@ -243,6 +264,26 @@ apiRoutes.get('/', function(req, res) {
 apiRoutes.get('/users', function(req, res) {
     User.find({}, function(err, users) {
         res.json(users);
+    });
+});
+
+apiRoutes.get('/orders', function(req, res) {
+    Order.find({}, function(err, orders) {
+        res.json(orders);
+    });
+});
+
+apiRoutes.post('/orders', function(req, res) {
+
+    Order.create({
+        name: req.body.name,
+        items: req.body.items,
+    });
+
+    Order.find(function(err, orders) {
+        if (err)
+            res.send(err)
+        res.json(orders);
     });
 });
 
