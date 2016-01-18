@@ -226,6 +226,7 @@ routerApp.controller('userController', ['$scope', '$http','$rootScope','$state',
             console.log($scope.user);
             $window.localStorage['token'] = response.token;
             console.log(response);
+            sessionStorage.clear();
             $state.go('home', {}, {reload: true});
         });
 
@@ -433,27 +434,32 @@ routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state
     $scope.finishOrder = function() {
 
 
+
        // $rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
-            console.log(currUser);
+           // console.log(currUser._id);
      //  });
-/*
-    //    if($window.localStorage['token'] == null)
-       $http.post('/signup', $scope.user).success(function(response){
-        });
 
-        $http.post('/api/authenticate', $scope.user).success(function(response){
-            console.log($scope.user);
-            $window.localStorage['token'] = response.token;
+        if($window.localStorage['token'] == null) {
+
+            $http.post('/signup', $scope.user).success(function (response) {
+            });
+
+            $http.post('/api/authenticate', $scope.user).success(function (response) {
+                console.log($scope.user);
+                $window.localStorage['token'] = response.token;
+                console.log(response);
+            });
+
+        }
+        $scope.orderItems =  $window.sessionStorage;
+
+
+
+        $http.post('/neworder', $scope.order, $scope.orderItems).success(function (request, response) {
             console.log(response);
-        });
-   console.log("IM logged in " +  $window.localStorage['token'] );
 
-*/
-      //  $http.post('/order', $scope.item).success(function (response) {
-        //    console.log(response);
-
-//        });
+          });
     }
 }]);
 

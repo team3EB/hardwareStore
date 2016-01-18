@@ -38,6 +38,7 @@ app.use(bodyParser.json());                                     // parse applica
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
 
+
 //ITEMS ROUTES
 app.get('/catalogue', function(req, res) {
     console.log("im in server get");
@@ -273,11 +274,29 @@ apiRoutes.get('/orders', function(req, res) {
     });
 });
 
-apiRoutes.post('/orders', function(req, res) {
+app.post('/neworder', function(req, res) {
+    var today = new Date();
+    console.log('HELLO FROM SERVER ORDER');
+ //   console.log(req.body.city);
+    console.log(req.body.orderItems);
 
+
+    /*
     Order.create({
         name: req.body.name,
         items: req.body.items,
+
+     order_date : Date,
+     User_id : String,
+     items : { type : Array , "default" : [] },
+     order_address : {
+     receiver : String,
+     street : String,
+     zip : Number,
+     city : String,
+     country : String
+     },
+     payment : false
     });
 
     Order.find(function(err, orders) {
@@ -285,6 +304,7 @@ apiRoutes.post('/orders', function(req, res) {
             res.send(err)
         res.json(orders);
     });
+    */
 });
 
 apiRoutes.put('/users/:id', function(req, res) {

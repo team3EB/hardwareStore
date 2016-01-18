@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Order = new Schema({
+    order_date : Date,
     User_id : String,
     items : { type : Array , "default" : [] },
     order_address : {
