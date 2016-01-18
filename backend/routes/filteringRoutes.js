@@ -6,7 +6,7 @@ var Item  = require('../models/item');
 module.exports=function(app) {
 
     app.get('/catalogue/cpu', function(req, res) {
-        console.log("im in server get");
+        console.log("im in serv get");
         console.log(req.headers);
         Item.find({'cathegory': "CPU" },function(err, items) {
 
@@ -16,4 +16,6 @@ module.exports=function(app) {
             res.json(items);
         });
     });
+
+
 }
