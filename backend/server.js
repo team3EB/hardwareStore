@@ -17,6 +17,7 @@ var morgan = require('morgan');             // log requests to the console (expr
 var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 var jwt = require('jsonwebtoken');
+var filteringRoutes = require('./routes/filteringRoutes');
 
 
 
@@ -38,6 +39,7 @@ app.use(bodyParser.json());                                     // parse applica
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
 
+filteringRoutes(app);
 
 //ITEMS ROUTES
 app.get('/catalogue', function(req, res) {
@@ -61,7 +63,8 @@ app.post('/catalogue', function(req, res){
         description: req.body.description,
         weight : req.body.weight,
         stock : req.body.stock,
-        price : req.body.price
+        price : req.body.price,
+        cathegory:req.body.cathegory
     });
 
     Item.find(function(err, items) {

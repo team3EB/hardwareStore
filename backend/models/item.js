@@ -11,7 +11,8 @@ var Item = new Schema({
     description: String,
     weight: Number,
     stock: Boolean,
-    price: Number
+    price: Number,
+    cathegory: String
 });
 
 // set up a mongoose model and pass it using module.exports
