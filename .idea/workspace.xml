@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7912fb0a-58d4-4dd7-8368-55034f9f36aa" name="Default" comment="Added user management: delete/update/navigate">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend/routes/filteringRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/models/item.js" afterPath="$PROJECT_DIR$/backend/models/item.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/pages/newItemForm.html" afterPath="$PROJECT_DIR$/frontend/pages/newItemForm.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/server.js" afterPath="$PROJECT_DIR$/backend/server.js" />
+    <list default="true" id="7912fb0a-58d4-4dd7-8368-55034f9f36aa" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/routes/filteringRoutes.js" afterPath="$PROJECT_DIR$/backend/routes/filteringRoutes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hardwareStore.iws" />
@@ -40,8 +37,8 @@
       <file leaf-file-name="filteringRoutes.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/routes/filteringRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15483871">
-              <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.30967742">
+              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
               </folding>
@@ -64,16 +61,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-5.3333335">
               <caret line="8" column="84" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="118" />
               <folding />
             </state>
           </provider>
@@ -622,7 +609,13 @@
       <option name="project" value="LOCAL" />
       <updated>1453155700946</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="filtering">
+      <created>1453156634616</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1453156634616</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView">
@@ -709,7 +702,8 @@
     <MESSAGE value="order schema and rest api for orders" />
     <MESSAGE value="decoded token is on currUser variable;" />
     <MESSAGE value="Added user management: delete/update/navigate" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added user management: delete/update/navigate" />
+    <MESSAGE value="filtering" />
+    <option name="LAST_COMMIT_MESSAGE" value="filtering" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1068,14 +1062,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="36" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1092,10 +1078,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="36" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/routes/filteringRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15483871">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.30967742">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
           <folding>
             <element signature="e#0#43#0" expanded="false" />
           </folding>

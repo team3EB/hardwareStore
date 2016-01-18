@@ -8,7 +8,7 @@ module.exports=function(app) {
     app.get('/catalogue/cpu', function(req, res) {
         console.log("im in server get");
         console.log(req.headers);
-        Item.find({'cathegory': 'CPU' },function(err, items) {
+        Item.find({'cathegory': "CPU" },function(err, items) {
 
             if (err)
                 res.send(err);
