@@ -419,7 +419,7 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
 routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window) {
     var sessioncart = function() {
 
-        $scope.orderItems =  JSON.parse($window.sessionStorage);
+        $scope.orderItems =  JSON.parse($window.sessionStorage[0]);
 
         console.log($scope.orderItems);
 

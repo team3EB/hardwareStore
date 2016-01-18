@@ -13,7 +13,7 @@ var Item = new Schema({
     stock : Boolean,
     status : String,
     price : Number,
-    category : String,
+    cathegory : String,
     image : {
         url : String
     }

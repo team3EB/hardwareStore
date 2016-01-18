@@ -64,7 +64,7 @@ app.post('/catalogue', function(req, res){
         weight : req.body.weight,
         stock : req.body.stock,
         price : req.body.price,
-        cathegory:req.body.cathegory
+        cathegory : req.body.cathegory
     });
 
     Item.find(function(err, items) {
