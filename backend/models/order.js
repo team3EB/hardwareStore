@@ -9,14 +9,32 @@ var Order = new Schema({
     order_date : Date,
     User_id : String,
     items : { type : Array , "default" : [] },
-    order_address : {
-        receiver : String,
+    /*order_address : {
+     receiver : String,
+     street : String,
+     zip : Number,
+     city : String,
+     country : String
+     },*/
+    payment : false,
+    shipping_address : {
+        name : String,
+        surname : String,
         street : String,
-        zip : Number,
         city : String,
+        zip : Number,
+        region : String,
         country : String
     },
-    payment : false
+    billing_address : {
+        name : String,
+        surname : String,
+        street : String,
+        city : String,
+        zip : Number,
+        region : String,
+        country : String
+    }
 });
 
 // set up a mongoose model and pass it using module.exports

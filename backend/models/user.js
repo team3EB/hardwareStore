@@ -9,9 +9,33 @@ var Schema = mongoose.Schema;
 SALT_WORK_FACTOR = 10;
 
 var User = new Schema({
-    name: { type: String, required: true, unique: true },
-    password: { type: String, required: true},
-    role: {type:String}
+    name : { type: String, unique: true },
+    surname : { type:String },
+    role : { type:String },
+    email : { type: String},
+    password : { type: String},
+    phone : { type: String},
+    business : { type: Boolean},
+    total_spent : { type: Number},
+    orders_count : { type: Number},
+    shipping_address : {
+        name : String,
+        surname : String,
+        street : String,
+        city : String,
+        zip : Number,
+        region : String,
+        country : String
+    },
+    billing_address : {
+        name : String,
+        surname : String,
+        street : String,
+        city : String,
+        zip : Number,
+        region : String,
+        country : String
+    }
 });
 
 User.pre('save', function(next) {
