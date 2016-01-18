@@ -274,17 +274,17 @@ apiRoutes.get('/orders', function(req, res) {
     });
 });
 
-app.post('/neworder', function(req, res) {
+apiRoutes.post('/orders', function(req, res) {
     var today = new Date();
     console.log('HELLO FROM SERVER ORDER');
- //   console.log(req.body.city);
-    console.log(req.body.orderItems);
+    //console.log(req.body);
+
 
 
     /*
-    Order.create({
-        name: req.body.name,
-        items: req.body.items,
+     Order.create({
+     name: req.body.name,
+     items: req.body.items,
 
      order_date : Date,
      User_id : String,
@@ -297,14 +297,14 @@ app.post('/neworder', function(req, res) {
      country : String
      },
      payment : false
-    });
+     });
 
-    Order.find(function(err, orders) {
-        if (err)
-            res.send(err)
-        res.json(orders);
-    });
-    */
+     Order.find(function(err, orders) {
+     if (err)
+     res.send(err)
+     res.json(orders);
+     });
+     */
 });
 
 apiRoutes.put('/users/:id', function(req, res) {

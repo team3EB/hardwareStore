@@ -371,6 +371,10 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
 
     };
 
+    $scope.checkout = function() {
+        $state.go('order');
+    }
+
     $scope.removeFromCart = function(ses_id) {
         for (var i = 0; i < $window.sessionStorage.length; i++) {
             if (JSON.parse($window.sessionStorage.getItem(i))._id == ses_id) {
@@ -412,8 +416,13 @@ routerApp.controller('cartController',  ['$scope', '$http','$rootScope','$state'
 
 }]);
 
-routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window, jwtHelper) {
+routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams,$window) {
     var sessioncart = function() {
+
+        $scope.orderItems =  JSON.parse($window.sessionStorage);
+
+        console.log($scope.orderItems);
+
 
         var session_cart = new Array();
         var cart_count = new Array();
@@ -427,37 +436,31 @@ routerApp.controller('orderController',  ['$scope', '$http','$rootScope','$state
     }
 
     $scope.ses = sessioncart();
-    $scope.checkout = function() {
-        $state.go('order');
-    }
 
     $scope.finishOrder = function() {
-
-
 
        // $rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
            // console.log(currUser._id);
      //  });
 
-        if($window.localStorage['token'] == null) {
+        //if($window.localStorage['token'] == null) {
 
-            $http.post('/signup', $scope.user).success(function (response) {
-            });
+          //  $http.post('/signup', $scope.user).success(function (response) {
+           // });
 
-            $http.post('/api/authenticate', $scope.user).success(function (response) {
-                console.log($scope.user);
-                $window.localStorage['token'] = response.token;
-                console.log(response);
-            });
+           // $http.post('/api/authenticate', $scope.user).success(function (response) {
+            //    console.log($scope.user);
+            //    $window.localStorage['token'] = response.token;
+            //    console.log(response);
+           // });
 
-        }
-        $scope.orderItems =  $window.sessionStorage;
-
+      //  }
 
 
-        $http.post('/neworder', $scope.order, $scope.orderItems).success(function (request, response) {
-            console.log(response);
+
+        $http.post('/api/orders', $scope.orderItems).success(function (request, response) {
+            //console.log($scope.orderItems);
 
           });
     }
