@@ -512,10 +512,10 @@ routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelpe
 
         currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
-        console.log(currUser._doc.role);
         var role = checkRole['role'];
+        var roleEC = currUser._doc.role;
 
-        if(role === 'admin') {
+        if(role === 'admin' || roleEC === 'admin') {
             $rootScope.admin = true;
         }else{
             $rootScope.admin = false;
