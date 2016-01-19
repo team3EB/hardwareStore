@@ -155,6 +155,13 @@ routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$st
         $window.location.reload();
     }
 
+    $scope.getCPU = function(id){
+
+        $http.get('/catalogue/CPU').success(function (response) {
+            $scope.items = response;
+        })
+    }
+
 
     if ($state.includes('item')){
         //console.log($stateParams.id);
