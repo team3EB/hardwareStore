@@ -150,9 +150,9 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
         currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
         var role = checkRole['role'];
-        //var roleEC = currUser._doc.role;
+        var roleEC = currUser._doc.role;
 
-        if(role === 'admin') {
+        if(role === 'admin' || roleEC === 'admin') {
             $rootScope.admin = true;
         }else{
             $rootScope.admin = false;
