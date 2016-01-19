@@ -27,10 +27,10 @@ module.exports=function(app) {
             res.json(items);
         });
     });
-    app.get('/api/catalogue/MTBRD', function(req, res) {
+    app.get('/api/catalogue/MOBO', function(req, res) {
         console.log("im in server get");
         console.log(req.headers);
-        Item.find({'cathegory': "MTBRD" },function(err, items) {
+        Item.find({'cathegory': "MOBO" },function(err, items) {
 
             if (err)
                 res.send(err);
