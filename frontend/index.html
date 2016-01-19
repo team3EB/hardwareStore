@@ -24,6 +24,7 @@
     <script src="../controllers/cartController.js"></script>
     <script src="../controllers/orderController.js"></script>
     <script src="../controllers/hashBang.js"></script>
+    <script src="../controllers/orderManagementCtrl.js"></script>
     <script src="../controllers/profileController.js"></script>
     <script src="pages.js"></script>
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -37,14 +38,12 @@
 <!-- NAVIGATION -->
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" ui-sref="#">AngularUI Router</a>
+        <a class="navbar-brand" ui-sref="#">Smart Solutions</a>
     </div>
     <ul class="nav navbar-nav">
         <li><a type="button" ui-sref="home">Home</a></li>
         <li><a type="button" ui-sref="catalogue">Catalogue</a></li>
-        <li><a type="button" ui-sref="addItem" ng-show="admin" class="ng-hide"> Add Item</a></li>
         <li><a type="button" ui-sref="registerUser">Register</a></li>
-        <li><a type="button" ui-sref="userManagement" ng-show="admin">User Management</a></li>
         <li><a type="button" ui-sref="login">Login </a></li>
 
     </ul>
@@ -52,6 +51,22 @@
         <button type="button" class="btn btn-default btn-sm" ng-controller="cartController" ng-click="cart()">
             <span class="glyphicon glyphicon-shopping-cart"></span> <b id="cart"></b> Items in Cart
         </button>
+
+    </ul>
+</nav>
+
+<nav class="navbar navbar-default" role="navigation" ng-show="admin">
+    <ul class="nav navbar-nav">
+        <li><a type="button" ui-sref="addItem"> Add Item</a></li>
+        <li><a type="button" ui-sref="userManagement">User Management</a></li>
+        <li><a type="button" ui-sref="orderManagement">Orders</a></li>
+
+    </ul>
+</nav>
+
+<nav class="navbar navbar-default" role="navigation" ng-show="b2b">
+    <ul class="nav navbar-nav">
+        <li><a type="button" ui-sref="commercialOffer">Commercial Offer</a></li>
 
     </ul>
 </nav>
@@ -64,6 +79,17 @@
 
 </div>
 
+<div class="footer"><footer>
+    <div id="footer-container">
+        <div id="footer-inner">
+
+            <div id="copyright">
+                <p>&copy; E-Business Project Team 3&nbsp;&nbsp;//&nbsp;&nbsp;Hosted by <a href="https://aws.amazon.com/ec2/">Amazon EC2</a>&nbsp;&nbsp;//&nbsp;&nbsp;Powered by <a href="http://expressionengine.com/">Expression Engine</a></p>
+            </div>
+
+        </div><!-- end inner -->
+    </div><!-- end container -->
+</footer></div>
 
 
 </body>

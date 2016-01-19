@@ -43,6 +43,7 @@ angular.module('routerApp.orderCtrl', [])
         $scope.sendEmail = function() {
 
             $http.get('/emailtest/' + currUser.email).success(function (response) {
+
             });
 
         }

@@ -26,12 +26,12 @@ module.exports=function(app) {
     app.get('/api/orders', function (req, res) {
         console.log("im in server get");
         console.log(req.headers);
-        Order.find(function (err, items) {
+        Order.find(function (err, orders) {
 
             if (err)
                 res.send(err);
 
-            res.json(items);
+            res.json(orders);
         });
     });
 

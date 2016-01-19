@@ -8,7 +8,7 @@ var currUser = null;
 var cart = new Array();
 
 angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtrl', 'routerApp.itemCtrl', 'routerApp.userCtrl',
-    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl', 'routerApp.hashBangURLs', 'routerApp.profileCtrl'])
+    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl', 'routerApp.hashBangURLs', 'routerApp.profileCtrl', 'routerApp.orderManagementCtrl'])
 
 
 
@@ -145,6 +145,20 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
 
         })
 
+        .state('commercialOffer', {
+            url: '/commOffer',
+            templateUrl: '/pages/commOffer.html',
+
+        })
+
+        .state('orderManagement', {
+            url: '/orders',
+            templateUrl: '/pages/orderManagement.html',
+            controller: 'orderManagementCtrl'
+
+        })
+
+
 
     })
 
@@ -179,7 +193,11 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
             $rootScope.loggedIn = false;
         }
 
-
+        if(role === 'b2b') {
+            $rootScope.b2b = true;
+        }else{
+            $rootScope.b2b = false;
+        }
 
         if(role === 'admin') {
             $rootScope.admin = true;
