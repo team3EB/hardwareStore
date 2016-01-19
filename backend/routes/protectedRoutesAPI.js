@@ -96,13 +96,28 @@ module.exports=function(app){
         });
     });
 
+
+    apiRoutes.get('/api/orders', function(req, res) {
+        console.log("im in server get");
+      console.log(req.headers);
+       Order.find(function(err, orders) {
+
+           if (err)
+                res.send(err);
+
+          res.json(orders);
+       });
+    });
+
     apiRoutes.post('/orders', function(req, res) {
         var today = new Date();
+        var formated_date = today.format("yyyy-mm-dd");
+
         console.log(req.body);
 
 
         Order.create({
-            order_date: new Date(),
+            order_date: formated_date,
             User_id : req.body[0].user_id,
             items: req.body[1],
             shipping_address : {

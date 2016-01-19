@@ -8,7 +8,7 @@ var currUser = null;
 var cart = new Array();
 
 angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtrl', 'routerApp.itemCtrl', 'routerApp.userCtrl',
-    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl', 'routerApp.hashBangURLs'])
+    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl', 'routerApp.hashBangURLs', 'routerApp.profileCtrl'])
 
 
 
@@ -87,7 +87,13 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
             controller: 'orderController'
 
         })
+        .state('oneorder', {
+            url: '/order/:id',
+            templateUrl: '/pages/oneOrder.html',
+            controller: 'profileController',
 
+
+        })
 
         .state('item', {
             url: '/catalogue/:id',
@@ -101,8 +107,15 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
             templateUrl: '/pages/registrationForm.html',
             controller: 'userController'
 
-        })
 
+        })
+        .state('profile', {
+            url: '/profile',
+            templateUrl: '/pages/profile.html',
+            controller: 'profileController'
+
+
+        })
         .state('login', {
             url: '/login',
             templateUrl: '/pages/loginPage.html',

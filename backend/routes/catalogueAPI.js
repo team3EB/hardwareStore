@@ -21,17 +21,6 @@ app.get('/api/catalogue', function(req, res) {
     });
 });
 
-    app.get('/api/orders', function(req, res) {
-        console.log("im in server get");
-        console.log(req.headers);
-        Order.find(function(err, items) {
-
-            if (err)
-                res.send(err);
-
-            res.json(items);
-        });
-    });
 
     app.post('/api/catalogue', function(req, res){
         console.log(req.body);
@@ -66,6 +55,8 @@ app.get('/api/catalogue', function(req, res) {
             res.json(data);
         });
     });
+
+
 
     app.put('/api/catalogue/:item_id', function(req,res){
 

@@ -36,14 +36,13 @@ angular.module('routerApp.orderCtrl', [])
 
         sessionStorage.clear();
 
-        $state.go('home', {reload: true});
+        $state.go('profile', {reload: true});
 
     }
 
         $scope.sendEmail = function() {
 
             $http.get('/emailtest/' + currUser.email).success(function (response) {
-                $state.go('home', {reload: true});
             });
 
         }
