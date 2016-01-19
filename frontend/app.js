@@ -512,7 +512,7 @@ routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelpe
 
         currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
-        console.log(currUser);
+        console.log(currUser._doc.role);
         var role = checkRole['role'];
 
         if(role === 'admin') {
