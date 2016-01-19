@@ -97,12 +97,14 @@ module.exports=function(app){
     });
 
     apiRoutes.post('/orders', function(req, res) {
-        var today = new Date();
+        var today = new Date().toISOString().
+            replace(/T/, ' ').      // replace T with a space
+            replace(/\..+/, '');
         console.log(req.body);
 
 
         Order.create({
-            order_date: new Date(),
+            order_date: today,
             User_id : req.body[0].user_id,
             items: req.body[1],
             shipping_address : {

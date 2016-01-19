@@ -6,6 +6,7 @@ angular.module('routerApp.mainPageCtrl', [])
 
     .controller('mainPageController', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
 
+
         $scope.logoutUser = function() {
 
 

@@ -1,0 +1,14 @@
+<table>
+    <thead>
+    <th>Order_id</th>
+    <th>Date</th>
+    <th>User_id</th>
+    </thead>
+    <tbody ng-repeat="order in orders">
+    <tr>
+        <td>{{order._id}}</td>
+        <td>{{order.order_date}}</td>
+        <td>{{order.User_id}}</td>
+    </tr>
+    </tbody>
+</table>

@@ -34,17 +34,18 @@ angular.module('routerApp.orderCtrl', [])
 
         });
 
-        sessionStorage.clear();
 
-        $state.go('home', {reload: true});
 
     }
 
         $scope.sendEmail = function() {
 
             $http.get('/emailtest/' + currUser.email).success(function (response) {
-                $state.go('home', {reload: true});
             });
+
+            sessionStorage.clear();
+            $state.go('home');
+
 
         }
 
