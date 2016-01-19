@@ -14,7 +14,7 @@ angular.module('routerApp.itemCtrl', [])
 
         $scope.addItem = function(){
             console.log($scope.item);
-            $http.post('/catalogue', $scope.item).success(function(response){
+            $http.post('/api/catalogue', $scope.item).success(function(response){
                 console.log(response);
                 $state.go('catalogue');
             });
@@ -23,7 +23,7 @@ angular.module('routerApp.itemCtrl', [])
 
         $scope.itemUpdate = function(){
             console.log($scope.item);
-            $http.put('/catalogue/' + $stateParams.id, $scope.item).success(function(response){
+            $http.put('/api/catalogue/' + $stateParams.id, $scope.item).success(function(response){
                 $scope.item = response;
                 console.log(response);
                 $state.go("item", { "id": $stateParams.id});

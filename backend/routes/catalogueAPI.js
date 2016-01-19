@@ -4,11 +4,12 @@
 
 var Item  = require('../models/item');
 var imgPath = 'sample.jpg';
+var Order  = require('../models/order');
 
 module.exports=function(app){
 
 
-app.get('/catalogue', function(req, res) {
+app.get('/api/catalogue', function(req, res) {
     console.log("im in server get");
     console.log(req.headers);
     Item.find(function(err, items) {
@@ -20,7 +21,19 @@ app.get('/catalogue', function(req, res) {
     });
 });
 
-    app.post('/catalogue', function(req, res){
+    app.get('/api/orders', function(req, res) {
+        console.log("im in server get");
+        console.log(req.headers);
+        Order.find(function(err, items) {
+
+            if (err)
+                res.send(err);
+
+            res.json(items);
+        });
+    });
+
+    app.post('/api/catalogue', function(req, res){
         console.log(req.body);
 
         Item.create({
@@ -39,7 +52,7 @@ app.get('/catalogue', function(req, res) {
         });
     });
 
-    app.get('/catalogue/:id', function(req, res) {
+    app.get('/api/catalogue/:id', function(req, res) {
         var response = {};
         console.log(req.headers);
 
@@ -54,7 +67,7 @@ app.get('/catalogue', function(req, res) {
         });
     });
 
-    app.put('/catalogue/:item_id', function(req,res){
+    app.put('/api/catalogue/:item_id', function(req,res){
 
         return Item.findById(req.params.item_id, function (err, item) {
             item.name =  req.body.name;
@@ -75,7 +88,7 @@ app.get('/catalogue', function(req, res) {
 
     });
 
-    app.delete('/catalogue/:item_id', function(req, res) {
+    app.delete('/api/catalogue/:item_id', function(req, res) {
         Item.remove({
             _id : req.params.item_id
         }, function(err, item) {

@@ -6,7 +6,7 @@ angular.module('routerApp.catalogueCtrl', [])
 
     .controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
 
-        $http.get('/catalogue').success(function (response) {
+        $http.get('/api/catalogue').success(function (response) {
             $scope.items = response;
         })
 
@@ -25,7 +25,7 @@ angular.module('routerApp.catalogueCtrl', [])
         }
         $scope.remove = function(id){
             console.log(id);
-            $http.delete('/catalogue/'+id).success(function (response) {
+            $http.delete('/api/catalogue/'+id).success(function (response) {
                 $scope.items = response;
             })
         }
@@ -37,14 +37,14 @@ angular.module('routerApp.catalogueCtrl', [])
 
             if(content === 'All'){
 
-                $http.get('/catalogue/').success(function (response) {
+                $http.get('/api/catalogue/').success(function (response) {
                     console.log($scope.example);
                     $scope.items = response;
                 })
 
             }else{
 
-                $http.get('/catalogue/' + $scope.type).success(function (response) {
+                $http.get('/api/catalogue/' + $scope.type).success(function (response) {
                     console.log($scope.example);
                     $scope.items = response;
                 })
@@ -55,7 +55,7 @@ angular.module('routerApp.catalogueCtrl', [])
 
         if ($state.includes('item')){
             //console.log($stateParams.id);
-            $http.get('/catalogue/' + $stateParams.id).success(function (response) {
+            $http.get('/api/catalogue/' + $stateParams.id).success(function (response) {
                 $scope.item = response;
                 console.log(response);
             });
@@ -63,7 +63,7 @@ angular.module('routerApp.catalogueCtrl', [])
 
         if ($state.includes('itemUpdate')){
             //console.log($stateParams.id);
-            $http.get('/catalogue/' + $stateParams.id).success(function (response) {
+            $http.get('/api/catalogue/' + $stateParams.id).success(function (response) {
                 $scope.item = response;
                 console.log(response);
             });

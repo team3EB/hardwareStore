@@ -8,7 +8,7 @@ var currUser = null;
 var cart = new Array();
 
 angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtrl', 'routerApp.itemCtrl', 'routerApp.userCtrl',
-    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl'])
+    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl', 'routerApp.hashBangURLs'])
 
 
 
@@ -131,8 +131,6 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
             controller: 'userManagement'
 
         })
-
-        $locationProvider.html5Mode(true);
 
 
     })
