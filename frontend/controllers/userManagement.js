@@ -32,8 +32,9 @@ angular.module('routerApp.userManCtrl', [])
 
         $scope.deleteUser = function(id){
             console.log(id);
-            $http.delete('/api/users/'+id);
-            $window.location.reload();
+            $http.delete('/api/users/'+id).success(function (response) {
+                $scope.users = response;
+            })
         }
 
 

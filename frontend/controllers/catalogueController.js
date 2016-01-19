@@ -25,8 +25,9 @@ angular.module('routerApp.catalogueCtrl', [])
         }
         $scope.remove = function(id){
             console.log(id);
-            $http.delete('/catalogue/'+id);
-            $window.location.reload();
+            $http.delete('/catalogue/'+id).success(function (response) {
+                $scope.items = response;
+            })
         }
 
         $scope.filter = function(content){
