@@ -20,7 +20,7 @@ var filteringRoutes = require('./routes/filteringRoutes');
 var catalogueAPI = require('./routes/catalogueAPI');
 var userAPI = require('./routes/userAPI');
 var cartAPI = require('./routes/cartAPI');
-var orderAPI = require('./routes/orderAPI');
+var ordersAPI = require('./routes/ordersAPI');
 var samples = require('./routes/samples');
 var protectedRoutes = require('./routes/protectedRoutesAPI');
 var sendEmail = require('./routes/sendEmail');
@@ -48,11 +48,11 @@ app.use(methodOverride());
 filteringRoutes(app);
 catalogueAPI(app);
 userAPI(app);
-orderAPI(app);
 cartAPI(app);
 samples(app);
 protectedRoutes(app);
 sendEmail(app);
+ordersAPI(app);
 
 app.get('*', function(req, res) {
     res.sendfile('/../frontend/index.html');
