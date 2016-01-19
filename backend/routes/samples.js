@@ -26,6 +26,24 @@ module.exports=function(app){
         });
     });
 
+    app.get('/setupb2b', function(req, res) {
+
+        // create a sample user
+        var nick = new User({
+            name: 'b2b',
+            password: 'b2b',
+            role: 'b2b'
+        });
+
+        // save the sample user
+        nick.save(function(err) {
+            if (err) throw err;
+
+            console.log('User saved successfully');
+            res.json({ success: true });
+        });
+    });
+
     app.get('/sampleorder', function(req, res) {
 
         // create a sample user
