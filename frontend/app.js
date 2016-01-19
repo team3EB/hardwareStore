@@ -149,6 +149,7 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
 
         currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
+        console.log(currUser._doc.role);
         var role = checkRole['role'];
         var roleEC = currUser._doc.role;
 
