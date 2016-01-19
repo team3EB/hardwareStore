@@ -14,9 +14,7 @@ var Item = new Schema({
     status : String,
     price : Number,
     cathegory : String,
-    image : {
-        url : String
-    }
+    img: { data: Buffer, contentType: String }
 });
 
 // set up a mongoose model and pass it using module.exports

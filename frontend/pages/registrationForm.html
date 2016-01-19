@@ -17,6 +17,13 @@
                              UserName<span class="req">*</span>
                         </label>
                         <input type="text" required autocomplete="off" ng-model="user.name"/>
+
+                        <label>
+                            Email<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" ng-model="user.email"/>
+
+
                     </div>
 
                 <div class="field-wrap">
@@ -24,6 +31,8 @@
                         Set A Password<span class="req">*</span>
                     </label>
                     <input type="password"required autocomplete="off" ng-model="user.password"/>
+
+
                 </div>
 
                 <button type="submit" class="button button-block" ng-click="registerUser()"/>Get Started</button>
