@@ -7,6 +7,8 @@
 
 // set up ========================
 var express  = require('express');
+var fs = require('fs');
+var https = require('https');
 var config = require('./models/config');
 var User  = require('./models/user');
 var Item  = require('./models/item');
@@ -369,5 +371,7 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
-app.listen(8080);
-console.log("App listening on port 8080");
+https.createServer({
+    key: fs.readFileSync('./sslSert/key.pem'),
+    cert: fs.readFileSync('./sslSert/cert.pem')
+}, app).listen(8080);
