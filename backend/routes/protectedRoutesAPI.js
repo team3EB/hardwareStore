@@ -97,19 +97,6 @@ module.exports=function(app){
     });
 
 
-    apiRoutes.get('/api/orders', function(req, res) {
-        console.log("im in server get");
-      console.log(req.headers);
-       Order.find(function(err, orders) {
-
-           if (err)
-                res.send(err);
-
-          res.json(orders);
-       });
-    });
-
-
     apiRoutes.post('/orders', function(req, res) {
         var today = new Date();
         console.log(req.body);

@@ -28,7 +28,7 @@ angular.module('routerApp.profileCtrl', [])
 
         $scope.oneOrder = function (order_id) {
 
-            $http.get('/api/order/' + order_id).success(function (response) {
+            $http.get('/api/orders/' + order_id).success(function (response) {
                 console.log(response);
                 $scope.order = response;
                 $state.go('oneorder', {id: order_id});
@@ -36,6 +36,14 @@ angular.module('routerApp.profileCtrl', [])
 
             })
 
+        }
+
+        if ($state.includes('oneorder')){
+            //console.log($stateParams.id);
+            $http.get('/api/orders/' + $stateParams.id).success(function (response) {
+                $scope.order = response;
+                console.log(response);
+            });
         }
 
 
