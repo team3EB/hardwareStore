@@ -132,6 +132,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
 routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$stateParams','$window', function ($scope,$http,$rootScope,$state, $stateParams, $window) {
 
+
     $http.get('/catalogue').success(function (response) {
         $scope.items = response;
     })
@@ -511,6 +512,7 @@ routerApp.run(function($rootScope, $state, $location, $timeout,$window, jwtHelpe
 
         currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
+        console.log(currUser);
         var role = checkRole['role'];
 
         if(role === 'admin') {
