@@ -1,1 +1,19 @@
-<h4>{{order._id}}</h4>
+<div class="container">
+<div class="kanban-centered">
+    <div class="kanban-entry">
+        <div class="kanban-entry-inner">
+            <div class="kanban-label">
+                <h2><a href="">Yout order id {{order._id}}</a> <span> exact date of order {{order.order_date}}</span></h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Name: {{order.shipping_address.name}}</li>
+                    <li class="list-group-item">Shipping Address: {{order.shipping_address.address}}</li>
+                    <li class="list-group-item">City: {{order.shipping_address.city}} Country: {{order.shipping_address.country}}</li>
+                    <li class="list-group-item">Quantity of Items: {{order.items[0].count}}</li>
+
+                </ul>
+
+                </div>
+        </div>
+    </div>
+</div>
+    </div>

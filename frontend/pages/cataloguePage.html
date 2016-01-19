@@ -1,23 +1,39 @@
+
+
+
 <div class="row">
-    <form>
+    <form role="form">
+        <label class="radio-inline">
         <label for="All">All</label>
         <input id="All" type="radio" name="content" ng-model="content" value="All" ng-change='filter(content)'>
-        <br />
+            </label>
+
+        <label class="radio-inline">
+
         <label for="CPU">CPU</label>
         <input id="CPU" type="radio" name="content" ng-model="content" value="CPU" ng-change='filter(content)'>
-        <br />
+            </label>
+        <label class="radio-inline">
+
         <label for="GPU">GPU</label>
         <input id="GPU" type="radio" name="content" ng-model="content" value="GPU" ng-change='filter(content)'>
-        <br />
+   </label>
+        <label class="radio-inline">
+
         <label for="RAM">RAM</label>
         <input id="RAM" type="radio" name="content" ng-model="content" value="RAM" ng-change='filter(content)'>
-        <br />
+
+            </label>
+        <label class="radio-inline">
+
         <label for="MOBO">MOBO</label>
         <input id="MOBO" type="radio" name="content" ng-model="content" value="MOBO" ng-change='filter(content)'>
+            </label>
     </form>
+    <br>
     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="item in items">
         <div class="thumbnail">
-            <img src="https://c1.neweggimages.com/BizIntell/item/14/202/14-202-145/pro_031415.jpg" alt="">
+            <img src="http://www.myiconfinder.com/uploads/iconsets/256-256-251c205de6105b216e43f280285d959d.png" alt="">
             <div class="caption">
                 <h4 class="pull-right">{{item.price}}€</h4>
                 <h4><a href="" ng-click="getItem(item._id, false)">{{item.name}}</a>

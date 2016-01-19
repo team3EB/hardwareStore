@@ -1,12 +1,90 @@
-<!-- mainView.html -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- begin panel group -->
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                <!-- panel 1 -->
+                <div class="panel panel-default">
+                    <!--wrap panel heading in span to trigger image change as well as collapse -->
+                    <span class="side-tab" data-target="#tab1" data-toggle="tab" role="tab" aria-expanded="false">
+                        <div class="panel-heading" role="tab" id="headingOne"data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <h4 class="panel-title">About us</h4>
+                        </div>
+                    </span>
+
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            Smart Solutions, the owner of this webshop, has a passion for classic computers. He gained his first computer experience as a kid with Windows 3.11 and MS-DOS back in the 90's. Years ago he discovered the 'strange' (it's not a pc..) MSX-2 from his dad and in 2003 he bought a Commodore 64C in a thrift store. Since then he has collected, restored and used many classic computers, also including classic game consoles. He had the wish to own more different kinds of classic computers for his collection though his storage space and funds were limited. Therefore he had to make choices, hence he started selling sometimes. He began once on eBay in 2005 and quickly expanded his eBay webshop. By offering classic computers to an international market, enthusiasts from other countries can also enjoy retro gaming, programming, repair, service and design of these wonderful tech 'collectables' from another era. He finds it important that these classic computers can be re-used or re-cycled for parts, to reduce the massive piles of e-waste worldwide.
+                        </div>
+                    </div>
+                </div>
+                <!-- / panel 1 -->
+
+                <!-- panel 2 -->
+                <div class="panel panel-default">
+                    <!--wrap panel heading in span to trigger image change as well as collapse -->
+                    <span class="side-tab" data-target="#tab2" data-toggle="tab" role="tab" aria-expanded="false">
+
+                    </span>
+
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <!-- Tab content goes here -->
+                            tab 2 content
+                        </div>
+                    </div>
+                </div>
+                <!-- / panel 2 -->
+
+                <!--  panel 3 -->
+                <div class="panel panel-default">
+                    <!--wrap panel heading in span to trigger image change as well as collapse -->
+                    <span class="side-tab" data-target="#tab3" data-toggle="tab" role="tab" aria-expanded="false">
+
+                    </span>
+
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <!-- tab content goes here -->
+                            tab 3 content
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- / panel-group -->
+
+        </div> <!-- /col-md-4 -->
+
+        <div class="col-md-8">
+            <!-- begin macbook pro mockup -->
+            <div class="md-macbook-pro md-glare">
+                <div class="md-lid">
+                    <div class="md-camera"></div>
+                    <div class="md-screen">
+                        <!-- content goes here -->
+                        <div class="tab-featured-image">
+                            <div class="tab-content">
+                                <div class="tab-pane  in active" id="tab1">
+                                    <img src="https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/25/259/259326/24-comp-pr-o.jpg?1417559681">
+                                </div>
+                                <div class="tab-pane " id="tab2">
+
+                                    <img src="https://unsplash.imgix.net/uploads/1411724908903377d4696/2e9b0cb2?dpr=2&fit=crop&fm=jpg&h=650&q=75&w=950">
+
+                                </div>
+                                <div class="tab-pane fade" id="tab3">
+
+                                    <img src="https://ununsplash.imgix.net/photo-1422479516648-9b1f0b6e8da8?dpr=2&fit=crop&fm=jpg&h=650&q=75&w=950" alt="tab1" class="img img-responsive">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-base"></div>
+            </div> <!-- end macbook pro mockup -->
 
 
-<div class="jumbotron text-center">
-    <h1>The Homey Page</h1>
-    <p>This page demonstrates <span class="text-danger">nested</span> views.</p>
 
-    <a ui-sref=".list" class="btn btn-primary">List</a>
-    <a ui-sref=".paragraph" class="btn btn-danger">Paragraph</a>
-</div>
-
-<div ui-view></div>
+        </div> <!-- / .col-md-8 -->
+    </div> <!--/ .row -->
+</div> <!-- end sidetab container -->
