@@ -24,8 +24,17 @@ angular.module('routerApp.userCtrl', [])
                 $window.localStorage['token'] = response.token;
                 console.log(response);
                 sessionStorage.clear();
-                $state.go('home', {}, {reload: true});
+                window.history.back();
             });
+
+        };
+
+        $scope.logoutUser = function() {
+            console.log("im in logout");
+            $window.localStorage.clear();
+            sessionStorage.clear();
+            window.location.reload(false);
+            $state.go('home', {}, {reload: true});
 
         };
 

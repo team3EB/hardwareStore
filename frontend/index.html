@@ -45,6 +45,7 @@
         <li><a type="button" ui-sref="registerUser">Register</a></li>
         <li><a type="button" ui-sref="userManagement" ng-show="admin">User Management</a></li>
         <li><a type="button" ui-sref="login">Login</a></li>
+        <li><a type="button" ui-sref="logout" ng-click="logoutUser()" ng-controller="userController" ng-show="loggedIn">Logout</a></li>
 
     </ul>
     <ul class="nav navbar-right">

@@ -96,43 +96,26 @@ module.exports=function(app){
         });
     });
 
-    apiRoutes.get('/orders', function(req, res) {
-        Order.find({}, function(err, orders) {
-            res.json(orders);
-        });
-    });
-
     apiRoutes.post('/orders', function(req, res) {
         var today = new Date();
-        console.log('HELLO FROM SERVER ORDER');
-        //console.log(req.body);
+        console.log(req.body);
 
 
+        Order.create({
+            order_date: new Date(),
+            User_id : req.body[0].user_id,
+            items: req.body[1],
+            shipping_address : {
+                name: req.body[0].name,
+                address : req.body[0].address,
+                city : req.body[0].city,
+                zip : req.body[0].zip,
+                country : req.body[0].country
+            }
+        });
 
-        /*
-         Order.create({
-         name: req.body.name,
-         items: req.body.items,
+        res.json({ success: true });
 
-         order_date : Date,
-         User_id : String,
-         items : { type : Array , "default" : [] },
-         order_address : {
-         receiver : String,
-         street : String,
-         zip : Number,
-         city : String,
-         country : String
-         },
-         payment : false
-         });
-
-         Order.find(function(err, orders) {
-         if (err)
-         res.send(err)
-         res.json(orders);
-         });
-         */
     });
 
     apiRoutes.put('/users/:id', function(req, res) {

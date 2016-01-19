@@ -4,7 +4,7 @@
 
 var item_id;
 var user_id;
-var currUser;
+var currUser = null;
 var cart = new Array();
 
 angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtrl', 'routerApp.itemCtrl', 'routerApp.userCtrl',
@@ -109,6 +109,7 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
 
         })
 
+
         .state('userManagement', {
             url: '/userManagement',
             templateUrl: '/pages/admin/userManagement.html',
@@ -150,6 +151,16 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
         currUser = jwtHelper.decodeToken($window.localStorage['token']);
         var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
         var role = checkRole['role'];
+
+        if(currUser === null){
+            $rootScope.loggedOut = true;
+            $rootScope.loggedIn = false;
+
+        }
+        else {
+            $rootScope.loggedOut = false;
+            $rootScope.loggedIn = true;
+        }
 
         if(role === 'admin') {
             $rootScope.admin = true;
