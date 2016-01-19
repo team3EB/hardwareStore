@@ -109,15 +109,14 @@ module.exports=function(app){
        });
     });
 
+
     apiRoutes.post('/orders', function(req, res) {
         var today = new Date();
-        var formated_date = today.format("yyyy-mm-dd");
-
         console.log(req.body);
 
 
         Order.create({
-            order_date: formated_date,
+            order_date: new Date(),
             User_id : req.body[0].user_id,
             items: req.body[1],
             shipping_address : {

@@ -30,7 +30,7 @@ angular.module('routerApp.orderCtrl', [])
         $scope.orderList.push($scope.orderItems);
 
 
-        $http.post('/api/orders', $scope.orderList).success(function (request, response) {
+        $http.post('/api/orders/', $scope.orderList).success(function (request, response) {
 
         });
 
