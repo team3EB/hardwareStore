@@ -8,7 +8,7 @@ var currUser = null;
 var cart = new Array();
 
 angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtrl', 'routerApp.itemCtrl', 'routerApp.userCtrl',
-    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl'])
+    'routerApp.userManCtrl', 'routerApp.cartCtrl', 'routerApp.orderCtrl', 'routerApp.mainPageCtrl'])
 
 
 
@@ -25,6 +25,7 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
 
         url: '/home',
         templateUrl: '/pages/mainView.html',
+        controller: 'mainPageController'
 
     })
         .state('home.cart', {
@@ -109,6 +110,13 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
 
         })
 
+        .state('logout', {
+            url: '/logout',
+            templateUrl: '/pages/mainView.html',
+            controller: 'mainPageController'
+
+        })
+
 
         .state('userManagement', {
             url: '/userManagement',
@@ -148,19 +156,19 @@ angular.module('routerApp', ['ui.router', 'angular-jwt', 'routerApp.catalogueCtr
 .run(function($rootScope, $state, $location, $timeout,$window, jwtHelper) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState){
 
-        currUser = jwtHelper.decodeToken($window.localStorage['token']);
-        var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
-        var role = checkRole['role'];
+        var role = null;
+        $rootScope.loggedIn = false;
 
-        if(currUser === null){
-            $rootScope.loggedOut = true;
+        if($window.localStorage['token']!=0){
+            currUser = jwtHelper.decodeToken($window.localStorage['token']);
+            var checkRole = jwtHelper.decodeToken($window.localStorage['token']);
+            var role = checkRole['role'];
+            $rootScope.loggedIn=true;
+        }else{
             $rootScope.loggedIn = false;
+        }
 
-        }
-        else {
-            $rootScope.loggedOut = false;
-            $rootScope.loggedIn = true;
-        }
+
 
         if(role === 'admin') {
             $rootScope.admin = true;

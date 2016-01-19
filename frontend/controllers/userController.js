@@ -29,13 +29,4 @@ angular.module('routerApp.userCtrl', [])
 
         };
 
-        $scope.logoutUser = function() {
-            console.log("im in logout");
-            $window.localStorage.clear();
-            sessionStorage.clear();
-            window.location.reload(false);
-            $state.go('home', {}, {reload: true});
-
-        };
-
     }])

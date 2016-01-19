@@ -17,6 +17,7 @@
     <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="app.js"></script>
+    <script src="../controllers/mainPageController.js"></script>
     <script src="../controllers/catalogueController.js"></script>
     <script src="../controllers/itemController.js"></script>
     <script src="../controllers/userController.js"></script>
@@ -44,8 +45,8 @@
         <li><a type="button" ui-sref="addItem" ng-show="admin" class="ng-hide"> Add Item</a></li>
         <li><a type="button" ui-sref="registerUser">Register</a></li>
         <li><a type="button" ui-sref="userManagement" ng-show="admin">User Management</a></li>
-        <li><a type="button" ui-sref="login">Login</a></li>
-        <li><a type="button" ui-sref="logout" ng-click="logoutUser()" ng-controller="userController" ng-show="loggedIn">Logout</a></li>
+        <li><a type="button" ui-sref="login" ng-show="!loggedIn">Login </a></li>
+        <li><a type="button" ui-sref="logout" ng-click="logoutUser()" ng-controller="mainPageController" ng-show="loggedIn" >Logout</a></li>
 
     </ul>
     <ul class="nav navbar-right">
