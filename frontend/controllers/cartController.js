@@ -47,7 +47,7 @@ angular.module('routerApp.cartCtrl', [])
 
         $scope.addToCart = function(id){
 
-            $http.get('/catalogue/'+id).success(function(res){
+            $http.get('/api/catalogue/'+id).success(function(res){
 
                 if($window.sessionStorage.length == 0) {
                     res['count']=1;

@@ -34,6 +34,8 @@ angular.module('routerApp.orderCtrl', [])
 
         });
 
+        sessionStorage.clear();
+
         $state.go('home', {reload: true});
 
     }
