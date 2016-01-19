@@ -161,6 +161,24 @@ routerApp.controller('Catalogue', ['$scope', '$http','$rootScope','$state', '$st
             $scope.items = response;
         })
     }
+    $scope.getGPU = function(id){
+
+        $http.get('/catalogue/GPU').success(function (response) {
+            $scope.items = response;
+        })
+    }
+    $scope.getMTBRD = function(id){
+
+        $http.get('/catalogue/MTBRD').success(function (response) {
+            $scope.items = response;
+        })
+    }
+    $scope.getRAM = function(id){
+
+        $http.get('/catalogue/RAM').success(function (response) {
+            $scope.items = response;
+        })
+    }
 
 
     if ($state.includes('item')){
